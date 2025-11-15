@@ -1,0 +1,14 @@
+-- Schema mínimo para permitir crear roles y usuarios
+CREATE TABLE IF NOT EXISTS rol (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS usuario (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255),
+  rol_id BIGINT,
+  CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id) REFERENCES rol(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

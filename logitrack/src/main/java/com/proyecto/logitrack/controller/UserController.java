@@ -1,7 +1,7 @@
 package com.proyecto.logitrack.controller;
 
-import com.proyecto.logitrack.model.User;
-import com.proyecto.logitrack.service.UserService;
+import com.proyecto.logitrack.model.Usuario;
+import com.proyecto.logitrack.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,31 +14,31 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UsuarioService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<Usuario> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
+    public Optional<Usuario> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/username/{username}")
-    public Optional<User> getUserByUsername(@PathVariable String username) {
+    public Optional<Usuario> getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
 
     @PostMapping
-    public User saveUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public Usuario saveUser(@RequestBody Usuario usuario) {
+        return userService.save(usuario);
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
-        boolean deleted = userService.deleteUser(id);
-        return deleted ? "Usuario eliminado" : "Usuario no encontrado";
+        userService.deleteUser(id);
+        return "Usuario eliminado";
     }
 }

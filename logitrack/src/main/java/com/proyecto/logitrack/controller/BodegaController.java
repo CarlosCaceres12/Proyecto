@@ -1,28 +1,43 @@
 package com.proyecto.logitrack.controller;
 
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import com.proyecto.logitrack.model.Bodega;
-import com.proyecto.logitrack.repository.BodegaRepository;
+import com.proyecto.logitrack.service.BodegaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/bodegas")
+@RequestMapping("/bodegas")
 public class BodegaController {
 
-    private final BodegaRepository repo;
-
-    public BodegaController(BodegaRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    private BodegaService bodegaService;
 
     @GetMapping
     public List<Bodega> listar() {
-        return repo.findAll();
+        return bodegaService.listar();
+    }
+
+    @GetMapping("/{id}")
+    public Bodega obtener(@PathVariable Long id) {
+        return bodegaService.obtener(id);
     }
 
     @PostMapping
-    public Bodega crear(@RequestBody Bodega bodega) {
-        return repo.save(bodega);
+    public Bodega guardar(@RequestBody Bodega bodega) {
+        return bodegaService.guardar(bodega);
+    }
+
+    @PutMapping("/{id}")
+    public Bodega actualizar(@PathVariable Long id, @RequestBody Bodega bodega) {
+        return bodegaService.actualizar(id, bodega);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        bodegaService.eliminar(id);
+        return ResponseEntity.ok().build();
     }
 }
-    

@@ -1,12 +1,12 @@
 package com.proyecto.logitrack.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-public class SecurityConfig {
+// Esta clase ha sido reemplazada por la del paquete security
+// Se mantiene para referencia histórica
+public class SecurityConfigOld {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
