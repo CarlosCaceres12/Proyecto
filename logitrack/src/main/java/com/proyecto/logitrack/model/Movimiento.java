@@ -1,6 +1,8 @@
 package com.proyecto.logitrack.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +13,12 @@ public class Movimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TipoMovimiento tipo;
+
+    @NotNull
+    @Min(1)
     private Integer cantidad;
 
     private LocalDateTime fecha = LocalDateTime.now();
@@ -34,8 +41,8 @@ public class Movimiento {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public TipoMovimiento getTipo() { return tipo; }
+    public void setTipo(TipoMovimiento tipo) { this.tipo = tipo; }
 
     public Integer getCantidad() { return cantidad; }
     public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }

@@ -20,6 +20,9 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Usuario usuario) {
         Usuario nuevo = usuarioService.registrar(usuario);
@@ -32,7 +35,7 @@ public class AuthController {
         Usuario u = usuarioService.buscarPorEmail(usuario.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!u.getPassword().equals(usuario.getPassword())) {
+        if (!passwordEncoder.matches(usuario.getPassword(), u.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 

@@ -1,6 +1,9 @@
 package com.proyecto.logitrack.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "producto")
@@ -10,10 +13,21 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 50)
     private String codigo;
+
+    @NotBlank
+    @Size(max = 150)
     private String nombre;
+
+    @Size(max = 80)
     private String categoria;
+
+    @Min(0)
     private Double precio;
+
+    @Min(0)
     private Integer stock;
 
     @ManyToOne
